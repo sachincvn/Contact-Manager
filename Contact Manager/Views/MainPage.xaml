@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contact_Manager.MainPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:Contact_Manager.ViewModels">
+
+  
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="60,*">
+            <StackLayout
+                VerticalOptions="Center"
+                Grid.Row="0">
+                <StackLayout
+                    Orientation="Horizontal">
+                    <Label
+                        VerticalOptions="Center"
+                        FontSize="25"
+                        Margin="5,0,0,0"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Text="Contacts"/>
+                    <SearchBar
+                            x:Name="ContactSearch"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            Placeholder="Search Contact">
+                        <SearchBar.Behaviors>
+                            <toolkit:UserStoppedTypingBehavior
+                                Command="{Binding SearchContactCommand}"
+                                CommandParameter="{Binding Text, Source={x:Reference ContactSearch}}"
+                                ShouldDismissKeyboardAutomatically="True"/>
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                </StackLayout>
+            </StackLayout>
+            <CollectionView
+                Grid.Row="1"
+                ItemsSource="{Binding ItemsCollection}"
+                SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <StackLayout
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center">
+                        <Image
+                            Source="empty_box"
+                            Margin="20"
+                            HorizontalOptions="Center" />
+
+                        <Label 
+                            Text="You have no contacts yet"
+                            SemanticProperties.HeadingLevel="Level2"
+                            SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                            FontSize="18"
+                            HorizontalOptions="Center" />
+
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Reveal">
+                                    <SwipeItem
+                                        Command="{Binding DeleteContactCommand}"
+                                        Text="Delete"
+                                        IconImageSource="icon_delete"
+                                        BackgroundColor="#ff4942" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame
+                                    Padding="0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding  ContactDetailCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <StackLayout
+                                        Margin="2"
+                                        Padding="10"
+                                        Orientation="Horizontal">
+
+                                    <Frame Margin="10"
+                                           BorderColor="Black"
+                                           CornerRadius="50"
+                                           HeightRequest="60"
+                                           WidthRequest="60"
+                                           IsClippedToBounds="True"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Image
+                                            VerticalOptions="Center"
+                                            HeightRequest="60"
+                                            WidthRequest="60"
+                                            Aspect="AspectFit"
+                                            Source="{Binding Contact.Image}"/>
+                                    </Frame>
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label
+                                            FontSize="20"
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Center"
+                                            TextColor="Black"
+                                            Text="{Binding Contact.FullName}"/>
+                                        <Label
+                                            VerticalOptions="Center"
+                                            Text="{Binding Contact.Number}"/>
+                                    </StackLayout>
+                                    <ImageButton
+                                        Command="{Binding CallContactCommand}"
+                                        HeightRequest="30"
+                                        WidthRequest="40"
+                                        Margin="10"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="EndAndExpand"
+                                        Source="icon_call"/>
+                                </StackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout
+                Grid.Row="1"
+                Margin="10"
+                VerticalOptions="End"
+                HorizontalOptions="End">
+                <ImageButton
+                    HeightRequest="55"
+                    WidthRequest="55"
+                    Margin="10"
+                    Command="{Binding AddContactCommand}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="EndAndExpand"
+                    Source="icon_add"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>

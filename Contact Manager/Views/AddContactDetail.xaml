@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contact_Manager.Views.AddContactDetail"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.NavBarIsVisible="False"
+             Title="Add Contact"
+             xmlns:views ="clr-namespace:Contact_Manager.Views"
+             xmlns:viewmodels="clr-namespace:Contact_Manager.ViewModels">
+  
+    
+    <ContentPage.Resources>
+        <Style x:Key="CustomEntry" TargetType="Entry">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="4,1,4,2"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BorderColor" Value="Black"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="Black"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="4,1,4,2"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="4,1,4,2"/>
+        </Style>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="4,1,4,2"/>
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="4,1,4,2"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    
+    <StackLayout>
+        <VerticalStackLayout
+            Spacing="10"
+            Padding="10">
+            <Label
+                FontAttributes="Bold"
+                Text="Name"/>
+            <Frame>
+                <Entry
+                    Text="{Binding Contact.Name}"
+                    Placeholder="Enter firstname">
+                    <Entry.Behaviors>
+                        <toolkit:TextValidationBehavior 
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}"
+                            Flags="ValidateOnValueChanged"
+                            MinimumLength="1"
+                            MaximumLength="20" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Frame>
+            <Label
+                FontAttributes="Bold"
+                Text="Surname"/>
+            <Frame>
+                <Entry
+                    Text="{Binding Contact.SurName}"
+                    Placeholder="Enter surname">
+                    <Entry.Behaviors>
+                        <toolkit:TextValidationBehavior 
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}"
+                            Flags="ValidateOnValueChanged"
+                            MinimumLength="1"
+                            MaximumLength="20" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Frame>
+            <Label
+                FontAttributes="Bold"
+                Text="Phone Number"/>
+            <Frame>
+                <Entry 
+                    Text="{Binding Contact.Number}"
+                    Placeholder="Enter Phone Number"
+                    MaxLength="13"
+                    Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}"
+                            Flags="ValidateOnValueChanged"
+                            MaximumDecimalPlaces="0" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Frame>
+
+            <Label
+                FontAttributes="Bold"
+                Text="Email Address"/>
+            
+            <Frame>
+                <Entry
+                    Placeholder="Enter Email Address">
+                    <Entry.Behaviors>
+                        <toolkit:EmailValidationBehavior 
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}"
+                            Flags="ValidateOnValueChanged" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Frame>
+            
+            <Label
+                FontAttributes="Bold"
+                Text="Contact Type"/>
+
+            <HorizontalStackLayout>
+                <RadioButton FontSize="18" Content="Home"/>
+                <RadioButton FontSize="18" Content="Work"/>
+            </HorizontalStackLayout>
+            <Label
+                FontAttributes="Bold"
+                Text="Date Of Birth"/>
+            <Frame>
+                <DatePicker FontSize="18"
+                            MinimumDate="06/09/2022"/>
+            </Frame>
+            <Label
+                FontAttributes="Bold"
+                Text="Gender"/>
+            <Frame>
+                <Picker FontSize="18" Title="Select Gender">
+                    <Picker.Items>
+                        <x:String>Male</x:String>
+                        <x:String>Female</x:String>
+                        <x:String>Other</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Frame>
+
+            <Frame>
+                <Entry 
+        IsPassword="True"
+        Placeholder="Password">
+
+                    <Entry.Behaviors>
+                        <toolkit:MultiValidationBehavior 
+                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                            ValidStyle="{StaticResource ValidEntryStyle}"
+                            Flags="ValidateOnValueChanged">
+
+                            <toolkit:CharactersValidationBehavior 
+                                x:Name="DigitValidation" 
+                                CharacterType="Digit" 
+                                MinimumCharacterTypeCount="1" 
+                                toolkit:MultiValidationBehavior.Error="1 digit" 
+                                RegexPattern="" />
+
+                            <toolkit:CharactersValidationBehavior 
+                                x:Name="UpperValidation" 
+                                CharacterType="UppercaseLetter" 
+                                MinimumCharacterTypeCount="1" 
+                                toolkit:MultiValidationBehavior.Error="1 upper case" 
+                                RegexPattern="" />
+
+                            <toolkit:CharactersValidationBehavior 
+                                x:Name="SymbolValidation" 
+                                CharacterType="NonAlphanumericSymbol" 
+                                MinimumCharacterTypeCount="1" 
+                                toolkit:MultiValidationBehavior.Error="1 symbol" 
+                                RegexPattern=""  />
+
+                            <toolkit:CharactersValidationBehavior 
+                                x:Name="AnyValidation" 
+                                CharacterType="Any" 
+                                MinimumCharacterTypeCount="8" 
+                                toolkit:MultiValidationBehavior.Error="8 characters" 
+                                RegexPattern="" />
+                        </toolkit:MultiValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+            </Frame>
+
+
+        </VerticalStackLayout>
+        <StackLayout
+                Margin="10"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="EndAndExpand">
+            <ImageButton
+                HeightRequest="55"
+                WidthRequest="55"
+                Command="{Binding AddContactDetailCommand}"
+                Margin="10"
+                VerticalOptions="Center"
+                HorizontalOptions="EndAndExpand"
+                Source="icon_check_mark"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

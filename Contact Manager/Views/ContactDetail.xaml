@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Contact_Manager.ViewModels"
+             x:Class="Contact_Manager.Views.ContactDetail"
+             Shell.NavBarIsVisible="False"
+             Title="ContactDetail">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout>
+            <StackLayout
+                HeightRequest="210">
+                    <Frame
+                        BorderColor="Black"
+                        CornerRadius="50"
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="EndAndExpand">
+                        <ImageButton
+                            HeightRequest="100"
+                            WidthRequest="100"
+                            Command="{Binding SelectProfilePictureCommand}"
+                            Source="{Binding Contact.Image}"/>
+                    </Frame>
+                </StackLayout>
+            <HorizontalStackLayout
+                    VerticalOptions="End"
+                    HorizontalOptions="EndAndExpand">
+                <ImageButton
+                    Command="{Binding DeleteContactCommand}"
+                    WidthRequest="20"
+                    HeightRequest="30"
+                    Margin="10"
+                    Source="icon_delete"/>
+                <ImageButton
+                    Command="{Binding EditContactCommand}"
+                    WidthRequest="25"
+                    HeightRequest="30"
+                    Margin="10"
+                    Source="icon_edit"/>
+            </HorizontalStackLayout>
+            <VerticalStackLayout>
+                <Label
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    FontSize="25"
+                    FontAttributes="Bold"
+                    Text="{Binding Contact.FullName}"/>
+            </VerticalStackLayout>
+
+            <StackLayout
+                HeightRequest="40"
+                Orientation="Horizontal"
+                Margin="10">
+                <Label
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    Text="{Binding Contact.Number}"/>
+                <HorizontalStackLayout
+                    VerticalOptions="End"
+                    HorizontalOptions="EndAndExpand">
+
+                    <ImageButton
+                        Command="{Binding CallContactCommand}"
+                        WidthRequest="50"
+                        Source="icon_phone"/>
+                    <ImageButton
+                        Command="{Binding MessageContactCommand}"
+                        WidthRequest="50"
+                        Source="icon_message"/>
+                </HorizontalStackLayout>
+            </StackLayout>
+
+                <StackLayout>
+                    <Label
+                        Margin="5"
+                        FontSize="15"
+                        Text="Call history"/>
+
+                    <VerticalStackLayout
+                        Margin="5">
+                        <Label
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            Text="June 8, 10:17"/>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                FontSize="15"
+                                Text="{Binding Contact.Number}"/>
+                            <Image
+                                 Margin="5,0,0,0"
+                                Source="icon_call_outgoing"/>
+                            <Label
+                                Text="Didn't connect"
+                                HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout
+                        Margin="5">
+                        <Label
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            Text="June 7, 14:17"/>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                FontSize="15"
+                                Text="{Binding Contact.Number}"/>
+                            <Image
+                                 Margin="5,0,0,0"
+                                Source="icon_call_outgoing"/>
+                            <Label
+                                Text="Outgoing 2 Min 12 Sec"
+                                HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout
+                        Margin="5">
+                        <Label
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            Text="June 5, 11:17"/>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                FontSize="15"
+                                Text="{Binding Contact.Number}"/>
+                            <Image
+                                 Margin="5,0,0,0"
+                                Source="icon_call_outgoing"/>
+                            <Label
+                                Text="Outgoing 5 Min 10 Sec"
+                                HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout
+                        Margin="5">
+                        <Label
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="Red"
+                            Text="June 4, 09:17"/>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                FontSize="15"
+                                Text="{Binding Contact.Number}"/>
+                            <Image
+                                 Margin="5,0,0,0"
+                                Source="icon_call_incomming"/>
+                            <Label
+                                Text="Rang 30 Sec"
+                                HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </VerticalStackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
